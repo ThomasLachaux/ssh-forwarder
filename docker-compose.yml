@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  ssh_forwarder:
+    build: .
+    container_name: ssh_forwarder
+    restart: always
+    ports:
+      - '30000:22'
+      - '30001:30001'
+    networks:
+      ssh_forwarder:
+        ipv4_address: 172.25.0.100
+
+networks:
+  ssh_forwarder:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/24
+          gateway: 172.25.0.254
